@@ -1,30 +1,29 @@
-import React, { useContext, useEffect, useState } from 'react'
-import Edit from '../img/edit.png'
-import Delete from '../img/delete.png'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import Menu from '../components/Menu'
-import moment from "moment"
-import { AuthContext } from "../context/authContext"
+import React, { useContext, useEffect, useState } from "react";
+import Edit from "../img/edit.png";
+import Delete from "../img/delete.png";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Menu from "../components/Menu";
+import moment from "moment";
+import { AuthContext } from "../context/authContext";
 import axios from "axios";
 import DOMPurify from "dompurify";
 
 const Single = () => {
-
   const [post, setPost] = useState([]);
 
-  const location = useLocation()
-  const navigate = useNavigate()
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const postId = location.pathname.split("/")[2]
+  const postId = location.pathname.split("/")[2];
 
-  const { currentUser } = useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get(`/posts/${postId}`);
         setPost(res.data);
-        console.log(post)
+        console.log(post);
       } catch (err) {
         console.log(err);
       }
@@ -34,21 +33,20 @@ const Single = () => {
 
   const handleDelete = async () => {
     try {
-      console.log("here")
+      console.log("here");
       await axios.delete(`/posts/${postId}`);
-      navigate("/")
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
-
-  }
+  };
 
   return (
     <div className="single">
       <div className="content">
-        <img src={`../upload/${post.img}`} class="center"/>
+        <img src={`../upload/${post.img}`} class="center" />
         <div className="user">
-          {post.userImage && (<img src={post.userImage} />)}
+          {post.userImage && <img src={post.userImage} />}
           <div className="info">
             <span>{post.username}</span>
             <p>Posted {moment(post.date).fromNow()}</p>
@@ -59,7 +57,8 @@ const Single = () => {
                 <img src={Edit} alt="" />
               </Link>
               <img onClick={handleDelete} src={Delete} alt="" />
-            </div>)}
+            </div>
+          )}
         </div>
         <h1>{post.title}</h1>
         <p
@@ -70,7 +69,7 @@ const Single = () => {
       </div>
       <Menu cat={post.cat} />
     </div>
-  )
-}
+  );
+};
 
-export default Single
+export default Single;

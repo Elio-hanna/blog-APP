@@ -1,5 +1,5 @@
-import React from 'react'
-import Logo from "../img/logo.png"
+import React from "react";
+import Logo from "../img/logo.png";
 
 const Footer = () => {
   return (
@@ -9,7 +9,7 @@ const Footer = () => {
         Made with ♥️ and <b>React.js</b>.
       </span>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
